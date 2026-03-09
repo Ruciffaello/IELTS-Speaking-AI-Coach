@@ -1,0 +1,50 @@
+## [ Visual Studio 暫存與組建產出 ]
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+
+## [ Visual Studio 專案特定檔案 ]
+.vs/
+*.user
+*.userosscache
+*.sln.doccache
+*.suo
+*.userprefs
+
+## [ .NET Core / .NET 5+ 檔案 ]
+project.lock.json
+project.fragment.lock.json
+.connectedservice
+
+## [ C++ / MSBuild 產出 (適合你的 SQL Parser 專案) ]
+ipch/
+*.aps
+*.intermediate.manifest
+*.pdb
+*.tlog
+*.lastbuildstate
+*.log
+*.ilk
+*.exe
+*.dll
+*.lib
+
+## [ 工具與套件 ]
+.pkg/
+packages/
+!packages/repository.config
+node_modules/
+
+## [ 環境變數與秘密資訊 ]
+.env
+.env.*
+appsettings.Development.json
+UserSecrets/
+
+## [ 作業系統產出 ]
+Thumbs.db
+.DS_Store

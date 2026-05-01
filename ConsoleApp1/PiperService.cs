@@ -21,40 +21,70 @@ namespace ConsoleApp1
         {
             if (string.IsNullOrWhiteSpace(text)) return;
 
+            // 1. 先在 C# 層級檢查檔案是否存在
+            if (!File.Exists(_piperExe))
+            {
+                Console.WriteLine($"\n[TTS Error]: 找不到 Piper 執行檔: {_piperExe}");
+                return;
+            }
+            if (!File.Exists(_modelPath))
+            {
+                Console.WriteLine($"\n[TTS Error]: 找不到模型檔: {_modelPath}");
+                return;
+            }
+
             // 設定 Piper 啟動參數
             var startInfo = new ProcessStartInfo
             {
                 FileName = _piperExe,
-                Arguments = $"--model {_modelPath} --output_raw", // 使用 raw 格式方便處理
+                Arguments = $"--model \"{_modelPath}\" --output_raw",
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
+                RedirectStandardError = true,
                 UseShellExecute = false,
-                CreateNoWindow = true
+                CreateNoWindow = true,
+                StandardOutputEncoding = null // 保持原始 Byte 流
             };
 
             using var process = Process.Start(startInfo);
-            using var sw = process.StandardInput;
+            if (process == null) return;
 
-            // 1. 將文字餵給 Piper
-            await sw.WriteLineAsync(text);
-            sw.Close(); // 告訴 Piper 文字輸入結束
-
-            // 2. 讀取 Piper 產出的 Raw PCM 資料並播放
-            // 注意：Piper 預設通常是 22050Hz, 16-bit, Mono (視模型而定)
-            using var ms = new MemoryStream();
-            await process.StandardOutput.BaseStream.CopyToAsync(ms);
-            ms.Position = 0;
-
-            using var waveProvider = new RawSourceWaveStream(ms, new WaveFormat(22050, 16, 1));
-            using var outputDevice = new WaveOutEvent();
-
-            outputDevice.Init(waveProvider);
-            outputDevice.Play();
-
-            // 等待播放完畢
-            while (outputDevice.PlaybackState == PlaybackState.Playing)
+            try 
             {
-                await Task.Delay(100);
+                // 非同步讀取錯誤訊息，避免阻塞
+                var errorTask = process.StandardError.ReadToEndAsync();
+
+                await using (var sw = process.StandardInput)
+                {
+                    await sw.WriteLineAsync(text);
+                }
+
+                // 播放音訊
+                using var waveProvider = new RawSourceWaveStream(process.StandardOutput.BaseStream, new WaveFormat(22050, 16, 1));
+                using var outputDevice = new WaveOutEvent();
+
+                outputDevice.Init(waveProvider);
+                outputDevice.Play();
+
+                while (outputDevice.PlaybackState == PlaybackState.Playing)
+                {
+                    await Task.Delay(50);
+                }
+
+                // 檢查是否有錯誤
+                string errorMsg = await errorTask;
+                if (!string.IsNullOrEmpty(errorMsg) && !errorMsg.Contains("DEBUG"))
+                {
+                    Console.WriteLine($"\n[Piper Message]: {errorMsg.Trim()}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\n[TTS Exception]: {ex.Message}");
+            }
+            finally 
+            {
+                if (!process.HasExited) process.Kill();
             }
         }
     }

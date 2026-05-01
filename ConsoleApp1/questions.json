@@ -1,0 +1,87 @@
+{
+  "Part1": [
+    {
+      "Topic": "Study",
+      "Questions": [
+        "Do you work or are you a student?",
+        "What subject are you studying?",
+        "Why did you choose that subject?",
+        "What would you like to do in the future?",
+        "What are the most popular subjects in China?",
+        "Do you think it's important to choose a subject you like?",
+        "Are you looking forward to working?",
+        "Do you like your subject? (Why? / Why not?)",
+        "Do you prefer to study in the mornings or in the afternoons?",
+        "Is your subject interesting to you?",
+        "Is there any kind of technology you can use in study?"
+      ]
+    },
+    {
+      "Topic": "Work",
+      "Questions": [
+        "What work do you do?",
+        "Why did you choose to do that type of job?",
+        "Do you like your job?",
+        "Do you miss being a student?",
+        "Is it very interesting?",
+        "Is there any kind of technology you use at work?"
+      ]
+    },
+    {
+      "Topic": "Hometown",
+      "Questions": [
+        "Has your hometown changed much these years?",
+        "Is that a big city or a small place?",
+        "How long have you been living here?",
+        "For you, what benefits are there living in a big city?",
+        "Is there anything you dislike about it?",
+        "What do you like most about your hometown?",
+        "Where in your country do you live?"
+      ]
+    },
+    {
+      "Topic": "Ice cream",
+      "Questions": [
+        "Do you like eating ice cream?",
+        "Did you eat ice cream when you were a child?",
+        "Are there any shops selling ice cream near the place where you live?",
+        "Can you make ice cream by yourself?"
+      ]
+    }
+  ],
+  "Part2": [
+    {
+      "Topic": "Someone who moved to a new place",
+      "Description": "Describe someone you know who has recently moved to a new place.",
+      "Prompts": [
+        "Who he/she is",
+        "What the new place is like",
+        "Why he/she moved to this place",
+        "And explain whether his or her move has a positive impact on you"
+      ],
+      "Part3Questions": [
+        "Is it a positive thing for young people to live by themselves?",
+        "Apart from cooking, are there any other skills that people need to learn if they live on their own?",
+        "What kinds of people tend to live by themselves?",
+        "Why do some young people keep moving?",
+        "What’s the difference between living alone and living with roommates?"
+      ]
+    },
+    {
+      "Topic": "Helpful person",
+      "Description": "Describe someone living in your area who often helps others.",
+      "Prompts": [
+        "What he/she is like",
+        "How he/she helps others",
+        "Why his/her help is beneficial",
+        "And explain why he/she often helps others"
+      ],
+      "Part3Questions": [
+        "What can children help parents with?",
+        "Should children be taught to help others?",
+        "Should students do community services?",
+        "Why do some people do volunteer work all over the world?"
+      ]
+    }
+  ]
+}

@@ -47,6 +47,285 @@
         "Are there any shops selling ice cream near the place where you live?",
         "Can you make ice cream by yourself?"
       ]
+    },
+    {
+      "Topic": "Accommodation",
+      "Questions": [
+        "Are the transport facilities in your city very good?",
+        "Which room does your family spend most of the time in?",
+        "Do you live in a house or a flat?",
+        "Do you plan to live here for a long time?",
+        "Do you live alone or with your family?",
+        "How long have you lived there?",
+        "What do you usually do in your house/flat/room?",
+        "Which is your favourite room in your home?",
+        "What's the difference between where you are living now and where you lived in the past? (If you want to say you have not lived elsewhere)",
+        "What can you see when you look out the window of your room?",
+        "Would you be willing to live in the countryside in the future?"
+      ]
+    },
+    {
+      "Topic": "The area you live in",
+      "Questions": [
+        "Do you like the area that you live in now?",
+        "Do you think the area you live in now is suitable for people of all ages?",
+        "Are people in your area friendly?",
+        "How has your area changed in recent years?",
+        "Do you know any famous people in your area?",
+        "Where do you like to go in your area?"
+      ]
+    },
+    {
+      "Topic": "Concentration",
+      "Questions": [
+        "Could you stay focused in class when you were a child?",
+        "What do you do to help you concentrate?",
+        "Is it difficult for you to stay focused on something?",
+        "When do you need to be focused?"
+      ]
+    },
+    {
+      "Topic": "Fixing things",
+      "Questions": [
+        "Can you fix things?",
+        "What kinds of things can you fix?",
+        "Have you ever asked people to teach you how to fix things?",
+        "Do you think fixing things is a necessary skill?"
+      ]
+    },
+    {
+      "Topic": "Friends",
+      "Questions": [
+        "How important are friends to you?",
+        "Where do you often meet?",
+        "What do you usually do with your friends?",
+        "Do you have many friends?"
+      ]
+    },
+    {
+      "Topic": "Rainy days",
+      "Questions": [
+        "Do you like rainy days?",
+        "Does it rain much in your city?",
+        "Would you like to live in a dry or wet place?",
+        "Have you cancel any plans because of rain?"
+      ]
+    },
+    {
+      "Topic": "Bags",
+      "Questions": [
+        "Do you usually carry a bag?",
+        "What kinds of bags do you use when travelling?",
+        "Do you often change bags?",
+        "Did you use a backpack when you were a child?",
+        "Would you give others bags as gifts?"
+      ]
+    },
+    {
+      "Topic": "Teachers",
+      "Questions": [
+        "Do you remember your teachers from primary school?",
+        "Do you have a favorite teacher?",
+        "Do you want to be a teacher in the future?"
+      ]
+    },
+    {
+      "Topic": "Wild animals",
+      "Questions": [
+        "Are there any wild animals in your country?",
+        "Have you ever been to a zoo or a safari park?",
+        "What is the animal you would like to see in the wild?",
+        "Are there TV programs about wild animals in your country?"
+      ]
+    },
+    {
+      "Topic": "Languages",
+      "Questions": [
+        "What languages do you speak?",
+        "Have you ever learnt any foreign languages in school?",
+        "Do you think it's difficult to learn a new language?",
+        "Will you learn another language in the future?",
+        "Why do people learn foreign languages?"
+      ]
+    },
+    {
+      "Topic": "Ambition and dream",
+      "Questions": [
+        "Do you think you are an ambitious person?",
+        "What was your dream when you were a child?",
+        "What is your main ambition in life now?",
+        "Are you the kind of person who never gives up on dreams?"
+      ]
+    },
+    {
+      "Topic": "Day off",
+      "Questions": [
+        "Do you usually spend your day off with parents or friends?",
+        "What do you often do on your day off?",
+        "When was the last time you had a few days off?",
+        "What would you like to do if you had a day off tomorrow?"
+      ]
+    },
+    {
+      "Topic": "Keeping healthy",
+      "Questions": [
+        "How do you keep healthy?",
+        "What is your favorite sport?",
+        "Are there any classes about keeping healthy in your school?",
+        "Do you have any advice on keeping healthy for youngsters?"
+      ]
+    },
+    {
+      "Topic": "Favorite day",
+      "Questions": [
+        "Which day is your favorite in a week?",
+        "How do you usually spend your time on this day?",
+        "Which day is your least favorite in a week?",
+        "Is there anything you do every day?"
+      ]
+    },
+    {
+      "Topic": "The city you live in",
+      "Questions": [
+        "What city do you live in?",
+        "Do you like this city? Why?",
+        "How long have you lived in this city?",
+        "Are there any big changes in this city?",
+        "Is this city your permanent residence?"
+      ]
+    },
+    {
+      "Topic": "Keys",
+      "Questions": [
+        "Do you always bring a lot of keys with you?",
+        "Have you ever lost your keys?",
+        "How can we avoid losing keys?"
+      ]
+    },
+    {
+      "Topic": "Library",
+      "Questions": [
+        "Do you often go to the library?",
+        "What do you usually do in the library?",
+        "Did you go to a library when you were a kid?",
+        "Do children in your country often go to a library?"
+      ]
+    },
+    {
+      "Topic": "Weekends",
+      "Questions": [
+        "What do you usually do on weekends?",
+        "Would you say weekends are important to us?",
+        "What do you plan to do for next weekend?"
+      ]
+    },
+    {
+      "Topic": "Stay up late",
+      "Questions": [
+        "What do you usually do on weekends?",
+        "Would you say weekends are important to us?",
+        "What do you plan to do for next weekend?"
+      ]
+    },
+    {
+      "Topic": "Happiness",
+      "Questions": [
+        "What made you happy when you were little?",
+        "Is there anything that has made you feel happy lately?",
+        "What do you think will make you feel happy in the future?",
+        "Do you think happiness is important?",
+        "Are you happy when you buy new things?",
+        "When do you feel happy at work?"
+      ]
+    },
+    {
+      "Topic": "Jewellery",
+      "Questions": [
+        "How often do you wear jewellery?",
+        "What type of jewellery do you like best?",
+        "Have you ever given jewellery to someone as a gift?",
+        "Why do you think some people wear a piece of jewellery for a long time?"
+      ]
+    },
+    {
+      "Topic": "Outer space and stars",
+      "Questions": [
+        "Have you ever learnt about outer space and stars?",
+        "Are you interested in films about outer space and stars?",
+        "Do you want to go into outer space in the future?"
+      ]
+    },
+    {
+      "Topic": "Chocolate",
+      "Questions": [
+        "Do you like eating chocolate? Why/Why not?",
+        "Did you often eat chocolate when you were a child?",
+        "What’s your favorite flavour?",
+        "Do you think it is good to give others chocolate as gifts?",
+        "Why do you think chocolate is popular around the world?"
+      ]
+    },
+    {
+      "Topic": "Schools",
+      "Questions": [
+        "Where is your school?",
+        "Do you like your school?",
+        "Are you content with the learning atmosphere in your school?",
+        "Is there anything you want to change about your school?"
+      ]
+    },
+    {
+      "Topic": "T-shirts",
+      "Questions": [
+        "Do you usually wear T-shirts?",
+        "Do you like T-shirts with pictures or prints?",
+        "Do you think older people are fashionable if they wear T-shirts?",
+        "Have you ever bought T-shirts as souvenirs?"
+      ]
+    },
+    {
+      "Topic": "Small businesses",
+      "Questions": [
+        "Are there any famous small businesses in the area you live in?",
+        "Do you prefer buying things from small or big companies?",
+        "Have you ever worked in small businesses?",
+        "Have you ever thought about starting your own business?"
+      ]
+    },
+    {
+      "Topic": "Art",
+      "Questions": [
+        "Do you like art?",
+        "Have you ever visited an art gallery?",
+        "Do you want to be an artist?",
+        "Do you like modern art or traditional art?"
+      ]
+    },
+    {
+      "Topic": "Geography",
+      "Questions": [
+        "Have you ever studied geography at school?",
+        "Do you like geography?",
+        "Do you want to travel to a country because of its geographical conditions?"
+      ]
+    },
+    {
+      "Topic": "Technology",
+      "Questions": [
+        "What technological products do you often use, computers or mobile phones?",
+        "What electronic devices have you bought lately?",
+        "Are there any technological devices you want to buy?",
+        "What benefits does technology bring to us?"
+      ]
+    },
+    {
+      "Topic": "Music",
+      "Questions": [
+        "Do you like music?",
+        "What kinds of music do you like to listen to?",
+        "Do you enjoy the same kind of music with your friend?",
+        "Which singer or musician would you like to see in the concert that is going to be held in your city?"
+      ]
     }
   ],
   "Part2": [
@@ -81,6 +360,844 @@
         "Should children be taught to help others?",
         "Should students do community services?",
         "Why do some people do volunteer work all over the world?"
+      ]
+    },
+    {
+      "Topic": "Popular person",
+      "Description": "Describe a popular person.",
+      "Prompts": [
+        "Who he/she is",
+        "What he/she has done",
+        "Why he/she is popular",
+        "And explain how you feel about him/her"
+      ],
+      "Part3Questions": [
+        "Why do some students want to become popular?",
+        "What kinds of students are more popular at school?",
+        "Do you think a good teacher should be popular?",
+        "Why are some celebrities not popular?"
+      ]
+    },
+    {
+      "Topic": "Famous person you are interested in",
+      "Description": "Describe a famous person you are interested in.",
+      "Prompts": [
+        "Who he/she is",
+        "How you knew about him/her",
+        "What he/she was like before he/she became famous",
+        "And explain why you are interested in him/her"
+      ],
+      "Part3Questions": [
+        "Are there any other kinds of famous people in your country?",
+        "Do you think celebrities should necessarily be good at their field?",
+        "What are the differences between famous people today and those in the past?",
+        "Do you think media is putting too much attention on famous people?"
+      ]
+    },
+    {
+      "Topic": "Piece of clothing you wear most often",
+      "Description": "Describe a piece of clothing you wear most often.",
+      "Prompts": [
+        "What it is",
+        "How often you wear it",
+        "What it is like",
+        "And explain why you enjoy wearing it"
+      ],
+      "Part3Questions": [
+        "When do people wear formal clothes?",
+        "What is the difference between the clothes of the elderly and the young people in China?",
+        "When do people in your country wear traditional clothes?",
+        "What are the advantages and disadvantages of wearing a uniform at work and school?"
+      ]
+    },
+    {
+      "Topic": "Invention that is useful in your daily life",
+      "Description": "Describe an invention that is useful in your daily life.",
+      "Prompts": [
+        "What the invention is",
+        "What it can do",
+        "How popular it is",
+        "And explain whether it is difficult or easy to use"
+      ],
+      "Part3Questions": [
+        "What qualities does inventors have?",
+        "Do all inventions bring benefits to our world?",
+        "Do you think people who haven’t been educated in school can invent things?",
+        "Do you think only scientists can invent new things?",
+        "What inventions do you think should be improved?",
+        "Are there any other inventions that make the world better?"
+      ]
+    },
+    {
+      "Topic": "Book you have read many times",
+      "Description": "Describe a book you have read many times.",
+      "Prompts": [
+        "What the book is about",
+        "How often you read this book",
+        "Why you have read it for many times",
+        "And explain what effect this book had on you"
+      ],
+      "Part3Questions": [
+        "What kinds of books do children like to read?",
+        "What can children learn from books?",
+        "Do people prefer e-books or paper books in your country?",
+        "Do you think parents reading stories to their children is necessary?",
+        "Do you think reading books can make people happier?",
+        "Do you think e-books will make people read more?"
+      ]
+    },
+    {
+      "Topic": "Movie you watched recently that you felt disappointed about",
+      "Description": "Describe a movie you watched recently that you felt disappointed about.",
+      "Prompts": [
+        "What this film is about",
+        "Who you watched it with",
+        "Why you decided to watch it",
+        "And explain why you felt disappointed about it"
+      ],
+      "Part3Questions": [
+        "Do people read movie reviews before watching movies?",
+        "Are historical films popular in your country?",
+        "Do you think films with famous actors or actresses would be more popular?",
+        "What kinds of films are popular in your country?"
+      ]
+    },
+    {
+      "Topic": "Job you are interested in",
+      "Description": "Describe a job you are interested in.",
+      "Prompts": [
+        "What it is",
+        "When you heard about this job for the first time",
+        "What qualities it requires",
+        "And explain why you are interested in this job"
+      ],
+      "Part3Questions": [
+        "What kinds of jobs are popular in your country?",
+        "Do people in your country do the same job throughout their whole life?",
+        "What kinds of people do low-salary jobs?",
+        "Do you think universities should arrange classes for students to teach them how to find jobs?",
+        "If they do, what kinds of skills should students learn in such classes?",
+        "When do you think is the right time for young people to start making plans for their future careers?"
+      ]
+    },
+    {
+      "Topic": "Sport game you enjoy watching",
+      "Description": "Describe a sport game you enjoy watching.",
+      "Prompts": [
+        "What it is",
+        "When you watched it for the first time",
+        "Who you often watch it with",
+        "And explain how you feel when you watch it"
+      ],
+      "Part3Questions": [
+        "What type of exercise do people in your country often do?",
+        "Do you think children should receive education in school about keeping fit and healthy?",
+        "What can be done to make children into doing sports?",
+        "What’s the difference between watching sports on TV and watching it live?"
+      ]
+    },
+    {
+      "Topic": "Water sport you would like to try in the future",
+      "Description": "Describe a water sport you would like to try in the future.",
+      "Prompts": [
+        "What it is",
+        "What you need to do this sport",
+        "Why you want to learn this sport",
+        "And explain whether it is difficult or easy to learn this sport"
+      ],
+      "Part3Questions": [
+        "What are the advantages and disadvantages of water transport?",
+        "What are the popular water sports in your country?",
+        "Do you think schools should teach children how to swim?",
+        "Are there many people in your country often go diving?"
+      ]
+    },
+    {
+      "Topic": "New shop that recently opened in your city/town",
+      "Description": "Describe a new shop that recently opened in your city/town.",
+      "Prompts": [
+        "Where the shop is",
+        "What it sells",
+        "What kinds of people usually go to this shop",
+        "And explain how successful you think it will be in the future"
+      ],
+      "Part3Questions": [
+        "What kinds of shops are popular in your city?",
+        "Why do young people enjoy shopping in boutiques?",
+        "Do you think location is the key factor that determines the volume of customers?",
+        "Are there any methods to improve the popularity of shops?"
+      ]
+    },
+    {
+      "Topic": "House that you would like to have",
+      "Description": "Describe a house that you would like to have.",
+      "Prompts": [
+        "What it is like",
+        "Where it would be",
+        "Why you would like to have such place",
+        "And explain how you feel about the place"
+      ],
+      "Part3Questions": [
+        "What’s the difference between an apartment and a house?",
+        "What is the most common architectural style of buildings in China?",
+        "What difficulties do people have living in the city?",
+        "What can be done to reduce the stress of city life?"
+      ]
+    },
+    {
+      "Topic": "Place you went to where there are a lot of people",
+      "Description": "Describe a place you went to where there are a lot of people.",
+      "Prompts": [
+        "Where it is",
+        "Who you went there with",
+        "Why there were many people",
+        "And explain how you felt when staying with those people"
+      ],
+      "Part3Questions": [
+        "What kinds of places are often crowded with many people?",
+        "Do you think young people often wait patiently in crowded places?",
+        "What kinds of people do not like to go to crowded places?",
+        "What are the advantages of living on an upper floor?",
+        "What do you think of the phenomenon of people queuing up in restaurants for more than an hour?"
+      ]
+    },
+    {
+      "Topic": "Place far away from your home and you want to visit it in the future",
+      "Description": "Describe a place far away from your home and you want to visit it in the future.",
+      "Prompts": [
+        "Where you would like to go",
+        "When you would like to go",
+        "Who you want to go with",
+        "And explain why you want to visit the place"
+      ],
+      "Part3Questions": [
+        "Does tourism have to do with cultural exchange?",
+        "Why do some people think it is enjoyable to stay at home during holidays?",
+        "What do you think is the most desirable place for people to visit during holidays?",
+        "Do young people usually travel with friends or alone?"
+      ]
+    },
+    {
+      "Topic": "Long car journey you went on",
+      "Description": "Describe a long car journey you went on.",
+      "Prompts": [
+        "Where you went",
+        "What you did there",
+        "Who you went there with",
+        "And explain why you went on that journey by car"
+      ],
+      "Part3Questions": [
+        "What benefit does public transport bring to the society?",
+        "Is it too late for people to get driving licenses at 18 years old?",
+        "Do you think the government should make it a rule for people to use public transport?",
+        "What jobs require people to be good at driving?"
+      ]
+    },
+    {
+      "Topic": "Happy experience in your childhood",
+      "Description": "Describe a happy experience in your childhood.",
+      "Prompts": [
+        "What it was about",
+        "Who you were with",
+        "What you did",
+        "And explain how you felt about it"
+      ],
+      "Part3Questions": [
+        "Why do some people have better memory than others?",
+        "What kinds of things do people prefer to remember?",
+        "Why do some people remember more of their childhood than others?",
+        "What can people do to improve their memory?"
+      ]
+    },
+    {
+      "Topic": "A time you got lost",
+      "Description": "Describe a time when you got lost.",
+      "Prompts": [
+        "Where you were",
+        "What you were doing",
+        "Who you were with",
+        "And explain how you felt when you got lost"
+      ],
+      "Part3Questions": [
+        "Why do some people get lost more easily than others?",
+        "Is it important to have a good sense of direction?",
+        "How can GPS or maps help people when they are lost?",
+        "Do you think children should be taught how to find their way back home?"
+      ]
+    },
+    {
+      "Topic": "Occasion when you spent time with a young child",
+      "Description": "Describe an occasion when you spent time with a young child.",
+      "Prompts": [
+        "Who the child is",
+        "Where you spent time with this child",
+        "What you did together",
+        "And how you felt about it"
+      ],
+      "Part3Questions": [
+        "Do you think children should have a lot of toys?",
+        "Do you think there are too many rules for children to follow?",
+        "Do you think it’s good for parents to help their children choose friends?",
+        "How can parents help children make decisions?",
+        "At what age should children start to make decisions?"
+      ]
+    },
+    {
+      "Topic": "Game you played in your childhood",
+      "Description": "Describe a game you played in your childhood.",
+      "Prompts": [
+        "What the game was",
+        "Where you played it",
+        "Who you played it with",
+        "And explain how you felt about the game"
+      ],
+      "Part3Questions": [
+        "Compared with computer games, do you think children today still like to play traditional games?",
+        "Do young people like to play alone or with others?",
+        "Is winning important in games?",
+        "What can you learn from games?"
+      ]
+    },
+    {
+      "Topic": "Time when you had to talk to a group of people",
+      "Description": "Describe a time when you had to talk to a group of people.",
+      "Prompts": [
+        "When it happened",
+        "Who you talked to",
+        "Why you gave this talk",
+        "And explain why you had to give this talk"
+      ],
+      "Part3Questions": [
+        "What benefits does the Internet bring to communication? What about the disadvantages?",
+        "Which one is better, being a speaker or a listener?",
+        "How important it is to be a good listener in communication?",
+        "What qualities do people need to speak in public?",
+        "What kinds of people often give speeches?"
+      ]
+    },
+    {
+      "Topic": "Exciting adventure you would like to go on",
+      "Description": "Describe an exciting adventure you would like to go on.",
+      "Prompts": [
+        "Where you want to go",
+        "Who you want to go there with",
+        "When you want to do this",
+        "And explain why you want to go on this adventure"
+      ],
+      "Part3Questions": [
+        "Do you think children are more interested in adventurous stories?",
+        "Why are some children addicted to adventurous games?",
+        "Why do some people prefer to read adventure books rather than actually take an adventure?",
+        "Does experiencing adventures broaden people’s horizons?"
+      ]
+    },
+    {
+      "Topic": "Occasion when you got incorrect information",
+      "Description": "Describe an occasion when you got incorrect information.",
+      "Prompts": [
+        "Why you need this information",
+        "How you got it",
+        "How you found it was incorrect",
+        "And how you felt about this experience"
+      ],
+      "Part3Questions": [
+        "What kinds of websites do you use to acquire information?",
+        "Why do some people not believe information online?",
+        "What is the influence of incorrect information?",
+        "What kinds of information are often spread through text messages and emails?",
+        "What kinds of jobs require staff to spread information to others?"
+      ]
+    },
+    {
+      "Topic": "Traditional celebration you enjoy in your country",
+      "Description": "Describe a traditional celebration you enjoy in your country that you enjoy.",
+      "Prompts": [
+        "What it is",
+        "What people do in this celebration",
+        "Who you celebrate it with",
+        "And explain why you enjoy it"
+      ],
+      "Part3Questions": [
+        "Are there any festivals that have already disappeared in your country?",
+        "Why do you think some traditional festivals are still celebrated by people (while others already disappeared)?",
+        "Why should children learn about traditions?",
+        "Are there any special music and food involved when people celebrate traditional festivals?"
+      ]
+    },
+    {
+      "Topic": "Time when you saved money to buy an expensive gift",
+      "Description": "Describe a time when you saved money to buy an expensive gift for others.",
+      "Prompts": [
+        "What it was",
+        "Why you wanted to buy this gift",
+        "How long you saved money for it",
+        "And explain how you felt when you bought the gift"
+      ],
+      "Part3Questions": [
+        "Are you good at saving money?",
+        "Do you think it is hard for people to save money nowadays?",
+        "Do you think children should have pocket money?",
+        "What do young people save money for?"
+      ]
+    },
+    {
+      "Topic": "Important decision you made in life",
+      "Description": "Describe an important decision you made in life.",
+      "Prompts": [
+        "What the decision was",
+        "Why you made this decision",
+        "How you made this decision",
+        "And explain why this decision was important"
+      ],
+      "Part3Questions": [
+        "What important decisions do young people need to make after graduation?",
+        "Who can children turn to for help when making decisions?",
+        "Do you think children sometimes have to make important decisions?",
+        "Do you think advertisements influence our decisions on shopping?"
+      ]
+    },
+    {
+      "Topic": "Person you met at a party who enjoyed talking with",
+      "Description": "Describe a person you met at a party who enjoyed talking with",
+      "Prompts": [
+        "What party it was",
+        "How you met this person",
+        "What you talked about",
+        "And explain why you enjoyed talking with him/her"
+      ],
+      "Part3Questions": [
+        "On what occasions do people want to make new friends?",
+        "Where can people make new friends?",
+        "Do you think it is difficult for foreigners to talk with Chinese?"
+      ]
+    },
+    {
+      "Topic": "Interesting old person you met",
+      "Description": "Describe an interesting old person you met",
+      "Prompts": [
+        "Who this person is",
+        "When/where you met this person",
+        "What you did",
+        "And explain why you think this old person is interesting"
+      ],
+      "Part3Questions": [
+        "Do you think old people and young people can have common interests?",
+        "What can old people teach young people?"
+      ]
+    },
+    {
+      "Topic": "Person you have met who you want to work/study with",
+      "Description": "Describe a person you have met who you want to work/study with.",
+      "Prompts": [
+        "Who this person is",
+        "How you met this person",
+        "How long you have known him/her",
+        "And explain why you want to work/study with him/her"
+      ],
+      "Part3Questions": [
+        "How can we get good colleagues?",
+        "Are good colleagues necessary at work?",
+        "What kinds of people are popular at work?",
+        "Why should children be kind to their classmates?"
+      ]
+    },
+    {
+      "Topic": "Actor you admire",
+      "Description": "Describe an actor you admire.",
+      "Prompts": [
+        "Who this person is",
+        "Where you saw him/her (in the movie)",
+        "What character he/she played in this movie",
+        "And explain why you admire this actor"
+      ],
+      "Part3Questions": [
+        "Why do children love dressing up in costumes?",
+        "Do you think it benefits children when they play a role in drama?",
+        "What are the differences between acting in a movie and in the theatre?"
+      ]
+    },
+    {
+      "Topic": "Person you know who is from a different culture",
+      "Description": "Describe a person you know who is from a different culture.",
+      "Prompts": [
+        "Who he/she is",
+        "Where he/she is from",
+        "How you knew him/her",
+        "And explain how you feel about this person"
+      ],
+      "Part3Questions": [
+        "How can we get to know people from different cultures better?",
+        "What are the advantages and disadvantages of cultural diversity?",
+        "How can traditional culture and other cultures coexist?"
+      ]
+    },
+    {
+      "Topic": "Person you know who loves to grow plants",
+      "Description": "Describe a person you know who loves to grow plants (e.g., vegetables/fruits/flowers etc.)",
+      "Prompts": [
+        "Who this person is",
+        "What he/she grows",
+        "Where he/she grows those vegetable/fruits",
+        "And explain why he/she enjoys this activity"
+      ],
+      "Part3Questions": [
+        "What do you think of the job, being a farmer?",
+        "Are there many people growing their own vegetables now?",
+        "Do you think it is good to let kids know how to plant?",
+        "What are the differences between traditional and modern agriculture?"
+      ]
+    },
+    {
+      "Topic": "Piece of technology you feel difficult to use",
+      "Description": "Describe a piece of technology you feel difficult to use",
+      "Prompts": [
+        "What it is",
+        "When you got it",
+        "How often you use it",
+        "And explain how you feel about it"
+      ],
+      "Part3Questions": [
+        "What technology do people currently use?",
+        "Why do big companies introduce new products frequently?",
+        "Why are people so keen on buying iPhones even though they haven't changed much?"
+      ]
+    },
+    {
+      "Topic": "Website you often visit",
+      "Description": "Describe a website you often visit",
+      "Prompts": [
+        "What it is about",
+        "How you found it",
+        "How often you visit it",
+        "And explain why you often visit it"
+      ],
+      "Part3Questions": [
+        "What are the most popular and the least popular apps in China?",
+        "Why do some people prefer to read news online instead of watching news on TV?",
+        "What kinds of people would still go to library to read and study?"
+      ]
+    },
+    {
+      "Topic": "Piece of good news that you heard about someone you know well",
+      "Description": "Describe a piece of good news that you heard about someone you know well",
+      "Prompts": [
+        "What it was",
+        "When you heard it",
+        "How you knew it",
+        "And explain how you felt about it"
+      ],
+      "Part3Questions": [
+        "Is it good to share something on social media?",
+        "Should the media only publish good news?"
+      ]
+    },
+    {
+      "Topic": "Advertisement you don’t like",
+      "Description": "Describe an advertisement you don’t like.",
+      "Prompts": [
+        "What it is about",
+        "Where you saw it",
+        "What it was like",
+        "And explain who you don’t like this advertisement"
+      ],
+      "Part3Questions": [
+        "Do you think it is useful to use celebrities in commercials?",
+        "Do you think the adverts online are directed at young people, while those on TV and newspaper are directed at old people?"
+      ]
+    },
+    {
+      "Topic": "Historical period you want to know more about",
+      "Description": "Describe a historical period you want to know more about.",
+      "Prompts": [
+        "What it is",
+        "How you know about this period of history",
+        "What you are interested in",
+        "And explain why you want to know more about this period"
+      ],
+      "Part3Questions": [
+        "How do children learn history?",
+        "Do you think everyone should know about history of their own country?",
+        "Do you think it is hard to protect historical buildings?"
+      ]
+    },
+    {
+      "Topic": "Something you would like to learn in the future",
+      "Description": "Describe something you would like to learn in the future.",
+      "Prompts": [
+        "What it is",
+        "How you would like to learn it",
+        "Why you would like to learn it",
+        "And explain whether it’s difficult to learn it"
+      ],
+      "Part3Questions": [
+        "What’s the most popular skill to learn these days?",
+        "What makes young people choose a major, interest or future income?"
+      ]
+    },
+    {
+      "Topic": "City you would like to stay in for a short time",
+      "Description": "Describe a city you would like to stay in for a short time.",
+      "Prompts": [
+        "Where it is",
+        "Who you will go there with",
+        "What you will do in the city",
+        "And explain why you stay there for a short time"
+      ],
+      "Part3Questions": [
+        "Why do people sometimes go to other cities?",
+        "Why are historical cities popular?",
+        "Do you think tourists may come across bad things in other cities?"
+      ]
+    },
+    {
+      "Topic": "Place you visited where the air was polluted",
+      "Description": "Describe a place you visited where the air was polluted.",
+      "Prompts": [
+        "Where the place is",
+        "When you visited there",
+        "Why the air was polluted",
+        "And explain how you felt about the place"
+      ],
+      "Part3Questions": [
+        "In what ways can air quality be improved effectively?",
+        "Do you think cities are cleaner that the countryside?",
+        "Do you think many factories have been forced to reduce emission?"
+      ]
+    },
+    {
+      "Topic": "Noisy place you have been to",
+      "Description": "Describe a noisy place you have been to.",
+      "Prompts": [
+        "What it is",
+        "When you went there",
+        "What you did there",
+        "And explain why you feel it is a noisy place"
+      ],
+      "Part3Questions": [
+        "Do you think it is good for children to make noise?",
+        "Should children not be allowed to make noise under any circumstances?",
+        "Which do you think makes louder noise, cities or the countryside?",
+        "What types of noise do you come across in daily life?",
+        "How do people respond to noises in your country?"
+      ]
+    },
+    {
+      "Topic": "Your favourite place in your home where you can relax",
+      "Description": "Describe your favourite place in your home where you can relax.",
+      "Prompts": [
+        "Where it is",
+        "What it is like",
+        "What you enjoy doing there",
+        "And explain why you feel relaxed at this place"
+      ],
+      "Part3Questions": [
+        "Why is it difficult for someone to relax?",
+        "Do people in your country exercise after work?",
+        "What is the place where people spend most of their time in their home?",
+        "Do you think there should be classes for training young people and children to relax?",
+        "Which is more important, mental relaxation or physical relaxation?"
+      ]
+    },
+    {
+      "Topic": "Activity you enjoyed in your free time when you were young",
+      "Description": "Describe an activity you enjoyed in your free time when you were young.",
+      "Prompts": [
+        "What it was",
+        "Where you did it",
+        "Who you did it with",
+        "And explain why you enjoyed it"
+      ],
+      "Part3Questions": [
+        "Is it important to take a break during work or study?",
+        "Are there more activities for young people to do now than 20 years ago?",
+        "Do adults and children have enough time for leisure activities nowadays?",
+        "What types of exercise do people in your country often do?"
+      ]
+    },
+    {
+      "Topic": "Time when you taught a friend/relative",
+      "Description": "Describe a time when you taught a friend/relative.",
+      "Prompts": [
+        "Who you taught",
+        "What you taught",
+        "How the result was",
+        "And explain how you felt about the experience"
+      ],
+      "Part3Questions": [
+        "What practical skills can young people teach old people?",
+        "How can young people teach old people skills?",
+        "Why older people have problems in learning new things?",
+        "Do you think showing is a better way than telling in education?"
+      ]
+    },
+    {
+      "Topic": "The first day at school that you remember",
+      "Description": "Describe the first day at school that you remember.",
+      "Prompts": [
+        "When it was",
+        "Where the school is",
+        "What happened on that day",
+        "And explain why you still remember the experience"
+      ],
+      "Part3Questions": [
+        "What would parents prepare for their kids when they first go to school?",
+        "How do children socialise with each other?",
+        "Should children learn how to socialize with others?"
+      ]
+    },
+    {
+      "Topic": "Time when you had an unusual meal",
+      "Description": "Describe time when you had an unusual meal.",
+      "Prompts": [
+        "When you had it",
+        "Where you had it",
+        "Who you had the meal with",
+        "And explain why it was unusual"
+      ],
+      "Part3Questions": [
+        "What are the advantages and disadvantages of eating in restaurants?",
+        "Do people in China like to eat out?",
+        "Why do some people choose to eat out instead of ordering takeaways?",
+        "Do people in your country socialize in restaurants?"
+      ]
+    },
+    {
+      "Topic": "Time when you made a complaint and you were satisfied with the result",
+      "Description": "Describe a time when you made a complaint and you were satisfied with the result.",
+      "Prompts": [
+        "When it happened",
+        "Who you complained to",
+        "What you complained about",
+        "And explain why you were satisfied with the result"
+      ],
+      "Part3Questions": [
+        "Which one is more effective to make a complaint, writing a letter or talking face to face??",
+        "Who are more likely to make complaints, old people or young people?",
+        "On what occasions are people more likely to make complaints?",
+        "How should companies react to complaints?"
+      ]
+    },
+    {
+      "Topic": "Something you did with one person or a group of people",
+      "Description": "Describe something you did with one person/a group of people.",
+      "Prompts": [
+        "What it was",
+        "Where you did it",
+        "Who you were with",
+        "And explain how you feel about this"
+      ],
+      "Part3Questions": [
+        "Do you have a good relationship with your neighbours?",
+        "How do neighbours help each other?",
+        "How do children learn to cooperate with each other?"
+      ]
+    },
+    {
+      "Topic": "Something you did that made you feel proud",
+      "Description": "Describe something you did that made you feel proud.",
+      "Prompts": [
+        "What it was",
+        "How you did it",
+        "How difficult it was",
+        "And explain why you felt proud of it"
+      ],
+      "Part3Questions": [
+        "Have you changed your life goals since your childhood?",
+        "Does everyone set goals for themselves?",
+        "What kinds of rewards are important at work?"
+      ]
+    },
+    {
+      "Topic": "Time when you were late for an important event",
+      "Description": "Describe a time when you were late for an important event.",
+      "Prompts": [
+        "When it happened",
+        "Where it happened",
+        "What made you be late for that event",
+        "And explain how you felt about this experience"
+      ],
+      "Part3Questions": [
+        "Why do you think some people are often late for meetings or appointments?",
+        "Do you think it’s important to be on time?",
+        "Do you think people are born with time management skills or they can develop such skills?"
+      ]
+    },
+    {
+      "Topic": "Daily routine that you enjoy",
+      "Description": "Describe a daily routine that you enjoy.",
+      "Prompts": [
+        "What it is",
+        "Where and when you do it",
+        "Who you do it with",
+        "And explain why you enjoy it"
+      ],
+      "Part3Questions": [
+        "What are the advantages of children following school routines?",
+        "How do people’s routines differ weekdays and weekends?",
+        "What are the differences between people’s daily routines now and those in the past?"
+      ]
+    },
+    {
+      "Topic": "Time when someone gave you something that you really wanted",
+      "Description": "Describe a time when someone gave you something that you really wanted.",
+      "Prompts": [
+        "When it happened",
+        "What it was",
+        "Who gave it to you",
+        "And explain why you wanted it so much"
+      ],
+      "Part3Questions": [
+        "Should employees have their own goals?",
+        "How should bosses reward employees?",
+        "What kinds of gifts do young people like to receive as rewards?",
+        "Do you think shopping is good for a country?",
+        "What would be the influence on economy if everyone bought domestic goods?"
+      ]
+    },
+    {
+      "Topic": "Problem you had while shopping online or in a store",
+      "Description": "Describe a problem you had while shopping online or in a store.",
+      "Prompts": [
+        "When it happened",
+        "What you bought",
+        "What problems you had while shopping online",
+        "And explain how you felt about it"
+      ],
+      "Part3Questions": [
+        "What kind of service do you think is good?",
+        "What would you do if you bought something disappointing from the internet?",
+        "Do you think online shopping will replace in-store shopping in the future?"
+      ]
+    },
+    {
+      "Topic": "Outdoor activity you did in a new place recently",
+      "Description": "Describe an outdoor activity you did in a new place recently.",
+      "Prompts": [
+        "What the activity is",
+        "Who invited you to participate in it",
+        "Whether you asked for help during the activity",
+        "And explain what change you had in the activity"
+      ],
+      "Part3Questions": [
+        "What outdoor activities are popular in China?",
+        "What are the differences between after-class activities done by young and older children?",
+        "Should young people try as many new activities as possible?"
+      ]
+    },
+    {
+      "Topic": "Time when you saw a lot of plastic waste",
+      "Description": "Describe a time when you saw a lot of plastic waste (e.g. in a park, on the beach etc.).",
+      "Prompts": [
+        "Where you saw the plastic waste",
+        "When you saw the plastic waste",
+        "What you did",
+        "And explain how you felt about this experience"
+      ],
+      "Part3Questions": [
+        "Why do some people like to use plastic products?",
+        "Do you think we should use plastic products?",
+        "How can we reduce our use of plastic products?",
+        "What kinds of plastic waste are often seen in your country?"
       ]
     }
   ]

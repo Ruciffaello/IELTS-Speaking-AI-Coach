@@ -6,45 +6,56 @@ using Microsoft.ML.OnnxRuntimeGenAI;
 namespace ConsoleApp1
 {
     /// <summary>
-    /// AI 大腦服務：擔任「老師」角色。負責載入 ONNX 模型、處理對話歷史與產生回覆。
+    /// 本地 AI 服務：使用 Microsoft.ML.OnnxRuntimeGenAI 來執行 Llama 模型。
+    /// 這是程式的「大腦」，負責理解使用者的話並產生回覆。
     /// </summary>
     public class OnnxAiService : IAiService, IDisposable
     {
-        private Model? _model;
-        private Tokenizer? _tokenizer;
+        private OgaHandle? _ogaHandle; // 全域句柄，負責程式結束時的正確清理
+        private Model? _model; // ONNX 模型實體
+        private Tokenizer? _tokenizer; // 將文字轉換為數字（Tokens）的工具
         private string _currentSystemPrompt = "You are an expert IELTS examiner.";
-        // 對話歷史列表，格式為 (角色, 內容)
+        
+        // 記憶對話歷史：這讓 AI 知道你剛剛說了什麼，才能進行追問。
+        // 格式為 (角色, 內容)，角色包括 system (系統規則), user (你), assistant (AI)。
         private readonly List<(string role, string content)> _history = new();
 
         public OnnxAiService(string modelPath)
         {
             try
             {
+                // 0. 初始化 OGA 句柄
+                _ogaHandle = new OgaHandle();
+
                 Console.WriteLine($"[系統]: 正在載入 Llama-3.2 3B 模型 ({modelPath})...");
-                // 載入 ONNX 模型與對應的 Tokenizer
+                
+                // 1. 載入模型檔案
                 _model = new Model(modelPath);
+                
+                // 2. 載入 Tokenizer (分詞器)
+                // 電腦看不懂文字，Tokenizer 會把 "Hello" 變成像 [15043] 這樣的數字。
                 _tokenizer = new Tokenizer(_model);
+                
                 ClearContext();
                 
-                // 模型預熱 (Warm-up)：第一次推理通常較慢，先跑一次小任務讓 CPU 熱身
+                // 3. 模型預熱 (Warm-up)
+                // 第一次執行推理通常很慢（因為要配置記憶體），我們先隨便跑一個小任務讓它「熱身」。
                 WarmUp();
             }
             catch (Exception ex)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"\n[錯誤]: 無法載入 3B 模型。請確認路徑與檔案格式。");
+                Console.WriteLine($"\n[錯誤]: 無法載入模型。請確認 resources/llm 資料夾內有 model.onnx 等檔案。");
                 Console.WriteLine($"詳細訊息: {ex.Message}");
                 Console.ResetColor();
             }
         }
 
-        /// <summary>
-        /// 預熱方法：執行一次微小的生成任務
-        /// </summary>
         private void WarmUp()
         {
             try {
                 if (_tokenizer == null || _model == null) return;
+                // 隨便餵一個單字給它跑
                 using var tokens = _tokenizer.Encode("<|begin_of_text|>Hi");
                 using var generatorParams = new GeneratorParams(_model);
                 generatorParams.SetSearchOption("max_length", 10);
@@ -52,29 +63,25 @@ namespace ConsoleApp1
                 using var generator = new Generator(_model, generatorParams);
                 generator.ComputeLogits();
                 generator.GenerateNextToken();
-            } catch { /* 忽略預熱階段的錯誤 */ }
+            } catch { /* 預熱失敗不影響主程式運作 */ }
         }
 
-        /// <summary>
-        /// 設定系統指令 (決定 AI 的個性與規則)
-        /// </summary>
         public void SetSystemPrompt(string systemPrompt)
         {
             _currentSystemPrompt = systemPrompt;
-            ClearContext(); // 切換模式時，清空對話歷史
+            // 當規則改變時（例如從 Part 1 變到 Part 2），清空記憶重新開始。
+            ClearContext();
         }
 
-        /// <summary>
-        /// 清空對話歷史，重置為只有 System Prompt
-        /// </summary>
         public void ClearContext()
         {
             _history.Clear();
+            // 第一條歷史永遠是 System Prompt，它決定了 AI 的行為模式。
             _history.Add(("system", _currentSystemPrompt));
         }
 
         /// <summary>
-        /// 獲取 AI 的非同步流式回覆
+        /// 核心方法：將使用者的輸入轉為 AI 的串流回覆
         /// </summary>
         public async IAsyncEnumerable<string> GetStreamingResponseAsync(string prompt)
         {
@@ -84,61 +91,70 @@ namespace ConsoleApp1
                 yield break;
             }
 
-            // 將使用者輸入加入歷史
+            // A. 把你的話加入歷史紀錄
             _history.Add(("user", prompt));
             
-            // 構建 Llama 3 專用的對話模板 (Chat Template)
+            // B. 依照 Llama 3 的格式組合所有對話
+            // Llama 3 期待的格式是：<|start_header_id|>user<|end_header_id|>\n\n內容<|eot_id|>
             string fullPrompt = BuildLlama3Prompt();
 
+            // C. 將文字轉成數字 (Tokens)
             using var tokens = _tokenizer.Encode(fullPrompt);
+            
+            // D. 設定生成參數 (控制 AI 怎麼說話)
             using var generatorParams = new GeneratorParams(_model);
             
-            // --- 效能與記憶體優化 (針對 16GB RAM) ---
-            // 限制最大字數，避免 KV Cache 佔用過多記憶體
+            // max_length: 限制 AI 最多說多少字，防止它沒完沒了地說下去（消耗記憶體）。
             generatorParams.SetSearchOption("max_length", 300); 
-            // 開啟記憶體共享緩存，減少重複申請記憶體的開銷
+            
+            // past_present_share_buffer: 優化記憶體，讓它重複使用之前的計算結果。
             generatorParams.SetSearchOption("past_present_share_buffer", true); 
-            // 關閉隨機抽樣 (Greedy Search)，速度最快且回覆最穩定
+            
+            // do_sample: 如果設為 false (Greedy Search)，AI 每次都會選機率最高的分支，回答最穩定、速度也最快。
             generatorParams.SetSearchOption("do_sample", false); 
-            // ------------------------------------------
 
             generatorParams.SetInputSequences(tokens);
+            
+            // E. 啟動生成器
             using var generator = new Generator(_model, generatorParams);
             StringBuilder fullResponse = new StringBuilder();
 
-            // 進入生成迴圈
+            // F. 進入循環，一個字一個字產出
             while (!generator.IsDone())
             {
-                // Task.Yield 讓出執行權，避免同步迴圈完全卡死 UI 執行緒
+                // yield 讓出控制權，避免這個迴圈把整個電腦卡死。
                 await Task.Yield(); 
                 
+                // 計算下一個字的機率
                 generator.ComputeLogits();
+                // 決定下一個字是什麼
                 generator.GenerateNextToken();
 
-                // 獲取最後一個生成的 Token 並解碼成文字
+                // 取得最後產生的那個 Token (數字)
                 var nextToken = generator.GetSequence(0)[^1];
+                // 把數字轉回人類看得懂的文字 (例如把 15043 轉回 "Hello")
                 var word = _tokenizer.Decode(new[] { nextToken });
 
                 if (!string.IsNullOrEmpty(word))
                 {
                     fullResponse.Append(word);
-                    yield return word;
+                    yield return word; // 即時回傳這個字
                 }
             }
 
-            // 將 AI 的完整回覆存入歷史
+            // G. 生成結束後，把 AI 說的完整話語也存入歷史
             _history.Add(("assistant", fullResponse.ToString()));
 
-            // 嚴格控制歷史長度：保留最近 2 輪對話
-            // 3B 模型較吃運算，歷史越長，CPU 負擔越重
+            // H. 歷史長度控制：只保留最近幾次對話。
+            // 如果歷史太長，AI 的運算壓力會指數級增長，導致電腦變卡。
             if (_history.Count > 5) 
             {
-                _history.RemoveRange(1, 2);
+                _history.RemoveRange(1, 2); // 刪除最舊的一輪 (User + AI)
             }
         }
 
         /// <summary>
-        /// 構建 Llama 3 專用的 Prompt 格式 (<|start_header_id|> 等標籤)
+        /// 輔助方法：將歷史對話封裝成 Llama 3.2 官方規定的特殊標籤格式
         /// </summary>
         private string BuildLlama3Prompt()
         {
@@ -146,19 +162,19 @@ namespace ConsoleApp1
             sb.Append("<|begin_of_text|>");
             foreach (var msg in _history)
             {
+                // Llama 3 的標籤系統：讓模型知道誰在說話，哪裡是結尾。
                 sb.Append($"<|start_header_id|>{msg.role}<|end_header_id|>\n\n{msg.content}<|eot_id|>");
             }
             sb.Append("<|start_header_id|>assistant<|end_header_id|>\n\n");
             return sb.ToString();
         }
 
-        /// <summary>
-        /// 釋放模型與 Tokenizer 佔用的記憶體
-        /// </summary>
         public void Dispose()
         {
+            // 釋放模型與分詞器。這些佔用了約 2GB 的 RAM，不用的時候一定要釋放。
             _tokenizer?.Dispose();
             _model?.Dispose();
+            _ogaHandle?.Dispose(); // 必須最後釋放，通知 GenAI 引擎關閉
         }
     }
 }

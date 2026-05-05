@@ -5,6 +5,10 @@ using System.Text.Json;
 
 namespace ConsoleApp1
 {
+    /// <summary>
+    /// 遠端 AI 服務：透過 HTTP API 連接到本地執行的 Ollama 伺服器。
+    /// 如果你電腦記憶體不足 (小於 16GB)，可以使用這個服務來減輕負擔。
+    /// </summary>
     public class OllamaService : IAiService
     {
         private static readonly HttpClient _http = new HttpClient();
@@ -13,7 +17,7 @@ namespace ConsoleApp1
         // 用於存放對話歷史，讓 AI 有記憶
         private readonly List<object> _conversationHistory = new List<object>();
 
-        private string _currentSystemPrompt = "You are an expert IELTS examiner. Your goal is to conduct a speaking simulation.";
+        private string _currentSystemPrompt = "You are an expert IELTS examiner.";
 
         public OllamaService()
         {
@@ -22,10 +26,7 @@ namespace ConsoleApp1
 
         private void ResetToDefaultSystemPrompt()
         {
-            _currentSystemPrompt = "You are an expert IELTS examiner. Your goal is to conduct a speaking simulation. " +
-                                  "1. Evaluate my sentences for grammar, vocabulary, and coherence. " +
-                                  "2. Since I am using speech-to-text, if you notice any unusual word combinations that might be pronunciation errors, please point them out and suggest the correct pronunciation. " +
-                                  "3. Keep your responses concise to maintain a natural conversation flow.";
+            _currentSystemPrompt = "You are an expert IELTS examiner. Give feedback on grammar and pronunciation.";
             ClearContext();
         }
 
@@ -41,6 +42,9 @@ namespace ConsoleApp1
             _conversationHistory.Add(new { role = "system", content = _currentSystemPrompt });
         }
 
+        /// <summary>
+        /// 透過 HTTP POST 請求向 Ollama 索取答案
+        /// </summary>
         public async IAsyncEnumerable<string> GetStreamingResponseAsync(string prompt)
         {
             // 將使用者輸入加入歷史
@@ -48,9 +52,9 @@ namespace ConsoleApp1
 
             var requestBody = new
             {
-                model = "gemma3:4b",
+                model = "gemma3:4b", // 指定模型名稱，需先執行 ollama pull gemma3:4b
                 messages = _conversationHistory,
-                stream = true
+                stream = true // 開啟串流模式
             };
 
             var jsonPayload = JsonSerializer.Serialize(requestBody);
@@ -59,6 +63,7 @@ namespace ConsoleApp1
                 Content = new StringContent(jsonPayload, Encoding.UTF8, "application/json")
             };
 
+            // 發送請求並準備讀取回應流
             var response = await _http.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
             
             using var stream = await response.Content.ReadAsStreamAsync();
@@ -67,6 +72,7 @@ namespace ConsoleApp1
             StringBuilder fullResponse = new StringBuilder();
 
             string? line;
+            // Ollama 在串流模式下會一行一行回傳 JSON
             while ((line = await reader.ReadLineAsync()) != null)
             {
                 if (string.IsNullOrWhiteSpace(line)) continue;
@@ -91,11 +97,11 @@ namespace ConsoleApp1
                 }
             }
 
-            // 將 AI 的完整回覆存回歷史，以便下一輪對話使用
+            // 最後把 AI 的完整回覆存回歷史，以便下一輪對話使用
             _conversationHistory.Add(new { role = "assistant", content = fullResponse.ToString() });
             
-            // 限制歷史長度，避免 Context 爆掉 (保留最近 10 輪)
-            if (_conversationHistory.Count > 21) // 1 (system) + 10*2 (user+assistant)
+            // 限制歷史長度
+            if (_conversationHistory.Count > 11) 
             {
                 _conversationHistory.RemoveRange(1, 2);
             }

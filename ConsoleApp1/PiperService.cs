@@ -46,24 +46,27 @@ namespace ConsoleApp1
             var startInfo = new ProcessStartInfo
             {
                 FileName = _piperExe,
-                // 使用 --json-input 模式，這樣我們可以透過 stdin 傳送語速等參數
-                // 使用 --output_raw 將音訊流輸出到 stdout
                 Arguments = $"--model \"{_modelPath}\" --output_raw --json-input",
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
-                RedirectStandardError = true, // 用於讀取 Piper 的日誌來判斷何時生成結束
+                RedirectStandardError = true,
                 UseShellExecute = false,
                 CreateNoWindow = true
             };
 
             _process = new Process { StartInfo = startInfo };
             
-            // 監聽 StandardError 來捕捉 "Completed" 訊息
             _process.ErrorDataReceived += (s, e) =>
             {
-                if (!string.IsNullOrEmpty(e.Data) && e.Data.Contains("Completed"))
+                if (!string.IsNullOrEmpty(e.Data))
                 {
-                    _sentenceFinishedTcs?.TrySetResult();
+                    // Piper 的日誌通常輸出到 stderr
+                    // 只要看到 "Completed" 或 "Finished" 或甚至只是日誌輸出，都可能代表處理進度
+                    // 這裡我們主要找 "Completed" 或 "samples" (Piper 輸出 "Finished generating ... samples")
+                    if (e.Data.Contains("Completed") || e.Data.Contains("samples"))
+                    {
+                        _sentenceFinishedTcs?.TrySetResult();
+                    }
                 }
             };
 
@@ -71,13 +74,11 @@ namespace ConsoleApp1
             _process.BeginErrorReadLine();
             _stdin = _process.StandardInput;
 
-            // 初始化音訊播放器
-            // Piper 預設輸出 22050Hz, 16bit, Mono
             var waveFormat = new WaveFormat(22050, 16, 1);
             _waveProvider = new BufferedWaveProvider(waveFormat)
             {
-                BufferDuration = TimeSpan.FromSeconds(20),
-                ReadFully = true // 沒資料時播放靜音，保持設備開啟
+                BufferDuration = TimeSpan.FromSeconds(30),
+                ReadFully = true
             };
 
             _outputDevice = new WaveOutEvent();
@@ -85,56 +86,66 @@ namespace ConsoleApp1
             _outputDevice.Play();
         }
 
-        /// <summary>
-        /// 讀取 Piper 輸出的音訊資料流，並餵入 NAudio 的緩衝區。
-        /// </summary>
         private void StartReadingOutput()
         {
             Task.Run(async () =>
             {
-                byte[] buffer = new byte[4096];
+                byte[] buffer = new byte[8192];
                 Stream baseStream = _process!.StandardOutput.BaseStream;
 
-                while (!_isDisposed && _process != null && !_process.HasExited)
+                try
                 {
-                    int bytesRead = await baseStream.ReadAsync(buffer, 0, buffer.Length);
-                    if (bytesRead > 0)
+                    while (!_isDisposed && _process != null && !_process.HasExited)
                     {
-                        _waveProvider?.AddSamples(buffer, 0, bytesRead);
-                    }
-                    else
-                    {
-                        await Task.Delay(10);
+                        int bytesRead = await baseStream.ReadAsync(buffer, 0, buffer.Length);
+                        if (bytesRead > 0)
+                        {
+                            _waveProvider?.AddSamples(buffer, 0, bytesRead);
+                        }
+                        else
+                        {
+                            await Task.Delay(50);
+                        }
                     }
                 }
+                catch { /* 忽略讀取異常 */ }
             });
         }
 
         public async Task SpeakAsync(string text, float speed = 1.0f)
         {
-            if (string.IsNullOrWhiteSpace(text) || _stdin == null || _process == null) return;
+            if (string.IsNullOrWhiteSpace(text)) return;
+            if (_process == null || _process.HasExited || _stdin == null)
+            {
+                Console.WriteLine("[TTS 警告]: Piper 進程未啟動或已結束。");
+                return;
+            }
 
-            // 確保讀取執行緒已啟動（僅執行一次）
             if (_sentenceFinishedTcs == null) StartReadingOutput();
 
             _sentenceFinishedTcs = new TaskCompletionSource();
 
-            // 構造 JSON 輸入，動態調整語速
-            // length_scale 是 Piper 的參數：1.0 是原速，0.8 較快，1.2 較慢
             float lengthScale = 1.0f / speed;
             var inputJson = JsonSerializer.Serialize(new { text = text, length_scale = lengthScale });
 
-            // 傳送給 Piper
             await _stdin.WriteLineAsync(inputJson);
+            await _stdin.FlushAsync();
 
-            // 1. 等待 Piper 在後台生成完畢 (透過 Stderr 的 "Completed" 訊號)
-            await _sentenceFinishedTcs.Task;
+            // 1. 等待 Piper 在後台生成完畢，增加 5 秒逾時防止永久卡死
+            var completedTask = await Task.WhenAny(_sentenceFinishedTcs.Task, Task.Delay(5000));
+            if (completedTask != _sentenceFinishedTcs.Task)
+            {
+                // 如果逾時，通常是因為沒捕捉到 "Completed" 字樣，但音訊可能已經在輸出了
+                await Task.Delay(500); 
+            }
 
             // 2. 等待 NAudio 緩衝區播放完畢
-            // 我們計算剩餘毫秒數來決定等待時間
-            while (_waveProvider!.BufferedBytes > 0)
+            // 增加安全計數器，防止因音訊設備問題導致的無限循環
+            int safetyCounter = 0;
+            while (_waveProvider!.BufferedBytes > 0 && safetyCounter < 100)
             {
                 await Task.Delay(100);
+                safetyCounter++;
             }
         }
 

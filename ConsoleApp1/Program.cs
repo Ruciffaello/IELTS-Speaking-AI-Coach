@@ -67,116 +67,147 @@ namespace ConsoleApp1
             using var aiBrain = new OnnxAiService(llmModelPath); // 啟動本地 AI 大腦 (Llama)
             var piper = new PiperService(piperExePath, piperModelPath); // 啟動語音合成 (TTS)
 
+            // 5. 初始化語音辨識 (STT) - 放在循環外，避免重複載入模型
+            Console.WriteLine("[系統]: 正在載入 Vosk 語音辨識模型...");
+            using var voskModel = new Model(voskModelPath);
+            using var rec = new VoskRecognizer(voskModel, 16000);
+            using var waveIn = new WaveInEvent { WaveFormat = new WaveFormat(16000, 16, 1), BufferMilliseconds = 500 };
+
+            StringBuilder part2Accumulator = new StringBuilder();
+
+            // 事件：當麥克風收到聲音資料時
+            waveIn.DataAvailable += (sender, e) =>
+            {
+                if (_isAiSpeaking) return;
+
+                if (rec.AcceptWaveform(e.Buffer, e.BytesRecorded))
+                {
+                    var userText = ParseVoskText(rec.Result());
+                    if (!string.IsNullOrWhiteSpace(userText))
+                    {
+                        // 這裡可以視需求決定是否即時顯示辨識結果
+                        // Console.WriteLine($"[DEBUG STT]: {userText}"); 
+                        
+                        // 我們需要處理模式 (modeChoice) 邏輯，但這裡在事件內，
+                        // 我們可以透過一個外部變數來判斷目前的模式。
+                        // (為了簡化，我們先維持原本的邏輯，但要注意變數作用域)
+                    }
+                }
+            };
+
             // 4. 主選單循環
             bool exitProgram = false;
             while (!exitProgram)
             {
                 Console.Clear();
                 Console.WriteLine("=== 雅思口說練習助手 (IELTS Speaking Assistant) ===");
+                // ... (選單內容相同)
                 Console.WriteLine("\n請選擇練習模式:");
-                Console.WriteLine("1. Part 1 (日常問答 - AI 會主動追問)");
-                Console.WriteLine("2. Part 2 (個人獨白 - 你有 1 分鐘準備，2 分鐘說話)");
-                Console.WriteLine("3. Part 3 (深度對話 - 針對 Part 2 的主題深入探討)");
+                Console.WriteLine("1. Part 1 (日常問答)");
+                Console.WriteLine("2. Part 2 (個人獨白)");
+                Console.WriteLine("3. Part 3 (深度對話)");
                 Console.WriteLine("4. 退出程式");
                 Console.Write("\n請輸入選擇 (1-4): ");
                 
                 string? modeChoice = Console.ReadLine();
                 if (modeChoice == "4") { exitProgram = true; continue; }
 
-                string systemPrompt = ""; // AI 的角色定義
-                string initialMessage = ""; // AI 開場白
+                string systemPrompt = "";
+                string initialMessage = "";
 
-                // 模式 1: Part 1
                 if (modeChoice == "1")
                 {
                     var p1 = PickPart1(questionBank);
                     _currentQuestions = p1.Questions;
                     _currentQuestionIndex = 0;
-                    systemPrompt = "You are an expert IELTS examiner for a SPEAKING test. \n" +
-                                   "Note: Input is from an STT engine (ignore typos). \n" +
-                                   "Rules: 1. Be concise. 2. Give 1 sentence feedback. 3. Ask the next question.";
+                    // 更加嚴格的角色定義，要求它只給 1 句回饋 + 1 個問題
+                    systemPrompt = "You are an expert IELTS Speaking examiner. \n" +
+                                   "Format: [Feedback] [Next Question]. \n" +
+                                   "Rules: \n" +
+                                   "1. Feedback must be exactly 1 concise sentence. \n" +
+                                   "2. Ask the provided question directly. \n" +
+                                   "3. DO NOT add any conversational filler (e.g., 'That's interesting', 'Let's move on') unless it is the feedback itself. \n" +
+                                   "4. DO NOT add any closing remarks or questions like 'What do you think?' after the question.";
                     initialMessage = $"Let's start Part 1. The topic is '{p1.Topic}'. " + _currentQuestions[0];
                 }
-                // 模式 2: Part 2
                 else if (modeChoice == "2")
                 {
                     var p2 = PickPart2(questionBank);
-                    systemPrompt = "You are an expert IELTS examiner. Evaluate the student's long turn talk.";
+                    systemPrompt = "You are an expert IELTS examiner. Evaluate the student's Part 2 long turn. Provide a band score (1-9) and brief suggestions.";
                     string intro = $"Part 2: {p2.Description}. You should say: {string.Join(", ", p2.Prompts)}. You have 1 minute to prepare.";
                     Console.WriteLine($"\n[AI]: {intro}");
+                    _isAiSpeaking = true;
                     await piper.SpeakAsync(intro, 0.95f);
-                    await RunTimer(60); // 準備倒數 60 秒
+                    _isAiSpeaking = false;
+                    await RunTimer(60);
                     initialMessage = "Preparation time is up. Please start speaking now.";
                 }
-                // 模式 3: Part 3
                 else if (modeChoice == "3")
                 {
-                    var p3 = PickPart2(questionBank); // Part 3 通常與 Part 2 主題相關
-                    systemPrompt = "You are an expert IELTS examiner. Challenge the student's ideas with deep questions.";
+                    var p3 = PickPart2(questionBank);
+                    systemPrompt = "You are an expert IELTS examiner for Part 3. Ask abstract and challenging questions based on the topic. Be concise.";
                     initialMessage = $"Now let's discuss {p3.Topic} in depth. {p3.Part3Questions[0]}";
                 }
                 else { continue; }
 
-                // 設定 AI 行為並開始對話
                 aiBrain.SetSystemPrompt(systemPrompt);
-                Console.WriteLine($"\n--- 練習開始 (按任意鍵結束並回到選單) ---");
+                Console.WriteLine($"\n--- 練習開始 (說完話請停頓 1.5 秒，按任意鍵結束) ---");
                 Console.WriteLine($"[AI]: {initialMessage}");
+                
+                _isAiSpeaking = true;
                 await piper.SpeakAsync(initialMessage, 0.95f);
+                _isAiSpeaking = false;
 
-                // 5. 初始化語音辨識 (STT)
-                using var model = new Model(voskModelPath); // 載入 Vosk 模型
-                using var rec = new VoskRecognizer(model, 16000); // 辨識器，16kHz 採樣率
-                using var waveIn = new WaveInEvent { WaveFormat = new WaveFormat(16000, 16, 1), BufferMilliseconds = 800 };
-
-                StringBuilder part2Accumulator = new StringBuilder();
-                _speechAccumulator = ""; // 重置
-
-                // 事件：當麥克風收到聲音資料時
-                waveIn.DataAvailable += (sender, e) =>
+                // 重置狀態
+                _speechAccumulator = "";
+                part2Accumulator.Clear();
+                
+                // 重新綁定事件
+                EventHandler<WaveInEventArgs> dataHandler = (sender, e) =>
                 {
-                    if (_isAiSpeaking) return; // 如果 AI 正在說話，就不要聽
-
-                    // 將音訊送入辨識器
+                    if (_isAiSpeaking) return;
                     if (rec.AcceptWaveform(e.Buffer, e.BytesRecorded))
                     {
-                        var userText = ParseVoskText(rec.Result()); // 取得辨識結果
+                        var userText = ParseVoskText(rec.Result());
                         if (!string.IsNullOrWhiteSpace(userText))
                         {
                             if (modeChoice == "2")
                             {
-                                // Part 2 是獨白，我們只負責記錄，等按鍵結束才一次性講評
                                 Console.WriteLine($"\n[You]: {userText}");
                                 part2Accumulator.Append(userText + " ");
                             }
                             else
                             {
-                                // Part 1 & 3 需要「停頓緩衝」：
-                                // 你說一段話後，我們等待 1.5 秒。如果你繼續說，計時重啟；
-                                // 如果 1.5 秒沒聲音，就代表你講完了，把整段話丟給 AI。
                                 _speechAccumulator += userText + " ";
-                                _speechCts?.Cancel(); // 取消之前的計時
+                                _speechCts?.Cancel();
                                 _speechCts = new CancellationTokenSource();
                                 var token = _speechCts.Token;
 
                                 Task.Run(async () =>
                                 {
                                     try {
-                                        await Task.Delay(1500, token); // 等待 1.5 秒
+                                        await Task.Delay(1500, token);
                                         if (!token.IsCancellationRequested)
                                         {
                                             string finalInput = _speechAccumulator.Trim();
                                             _speechAccumulator = "";
                                             Console.WriteLine($"\n[You]: {finalInput}");
 
-                                            // 如果是 Part 1，我們可以主動告訴 AI 下一個問題是什麼，方便它引導流程。
-                                            string instruction = finalInput;
-                                            if (modeChoice == "1" && _currentQuestionIndex < _currentQuestions.Count - 1)
+                                            // 使用更明確的指令格式
+                                            string instruction = $"[User Response]: \"{finalInput}\"\n";
+                                            if (modeChoice == "1")
                                             {
-                                                _currentQuestionIndex++;
-                                                instruction += $"\n(Note to AI: After feedback, ask this question: {_currentQuestions[_currentQuestionIndex]})";
+                                                if (_currentQuestionIndex < _currentQuestions.Count - 1)
+                                                {
+                                                    _currentQuestionIndex++;
+                                                    instruction += $"[Instruction]: Give feedback and then ask this question: \"{_currentQuestions[_currentQuestionIndex]}\"";
+                                                }
+                                                else
+                                                {
+                                                    instruction += "[Instruction]: Give feedback and then state that Part 1 is finished.";
+                                                }
                                             }
                                             
-                                            // 呼叫 AI 處理對話
                                             await ProcessConversation(instruction, aiBrain, piper);
                                         }
                                     } catch (TaskCanceledException) { }
@@ -186,19 +217,19 @@ namespace ConsoleApp1
                     }
                 };
 
-                // 開始錄音
+                waveIn.DataAvailable += dataHandler;
                 waveIn.StartRecording();
-                Console.ReadKey(true); // 等待使用者按任意鍵結束練習
+                
+                Console.ReadKey(true);
+                
                 waveIn.StopRecording();
+                waveIn.DataAvailable -= dataHandler; // 解除綁定，避免重複
 
-                // 如果是 Part 2，在結束後給予講評
                 if (modeChoice == "2")
                 {
                     string finalSpeech = part2Accumulator.ToString().Trim();
                     if (!string.IsNullOrEmpty(finalSpeech))
-                    {
                         await ProcessConversation(finalSpeech + "\n(Provide your evaluation now.)", aiBrain, piper);
-                    }
                 }
 
                 Console.WriteLine("\n練習結束。1 秒後返回選單...");
@@ -263,12 +294,22 @@ namespace ConsoleApp1
         }
 
         /// <summary>
-        /// 清理文字中的 Markdown 符號 (如 * 或 #)，避免 TTS 把它們讀出來。
+        /// 清理文字中的 Markdown 符號 (如 * 或 #) 或 AI 標籤，避免 TTS 把它們讀出來。
         /// </summary>
         private static string CleanTextForSpeech(string text)
         {
             if (string.IsNullOrEmpty(text)) return "";
-            return text.Replace("*", "").Replace("#", "").Trim();
+            
+            // 移除 Markdown
+            string cleaned = text.Replace("*", "").Replace("#", "");
+            
+            // 移除 AI 可能產生的標籤格式，例如 [Feedback] 或 [Next Question]
+            cleaned = System.Text.RegularExpressions.Regex.Replace(cleaned, @"\[.*?\]", "");
+            
+            // 移除括號內容 (有時 AI 會加註解)
+            cleaned = System.Text.RegularExpressions.Regex.Replace(cleaned, @"\(.*?\)", "");
+
+            return cleaned.Trim();
         }
 
         /// <summary>
